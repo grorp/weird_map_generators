@@ -1,3 +1,11 @@
+-- https://ephenationopengl.blogspot.com/2012/05/making-caves-from-simplex-noise.html
+
+-- https://github.com/larspensjo/ephenation-server/blob/75e2e84791f446b1e0c38d2d83abaa7c8966bd74/src/cmd/server/createchunk.go#L28
+-- https://github.com/larspensjo/ephenation-server/blob/75e2e84791f446b1e0c38d2d83abaa7c8966bd74/src/cmd/server/createchunk.go#L84
+-- https://github.com/larspensjo/ephenation-server/blob/75e2e84791f446b1e0c38d2d83abaa7c8966bd74/src/cmd/server/createchunk.go#L134
+-- https://github.com/larspensjo/ephenation-server/blob/75e2e84791f446b1e0c38d2d83abaa7c8966bd74/src/cmd/server/config.go#L56
+-- (Z, not Y, seems to be up.)
+
 local simplex = dofile(minetest.get_modpath("the_caves") .. "/simplex_noise.lua")
 
 minetest.set_mapgen_setting("mg_name", "singlenode", true)
