@@ -1,9 +1,6 @@
 -- https://ephenationopengl.blogspot.com/2012/05/making-caves-from-simplex-noise.html
 
--- https://github.com/larspensjo/ephenation-server/blob/75e2e84791f446b1e0c38d2d83abaa7c8966bd74/src/cmd/server/createchunk.go#L28
--- https://github.com/larspensjo/ephenation-server/blob/75e2e84791f446b1e0c38d2d83abaa7c8966bd74/src/cmd/server/createchunk.go#L84
--- https://github.com/larspensjo/ephenation-server/blob/75e2e84791f446b1e0c38d2d83abaa7c8966bd74/src/cmd/server/createchunk.go#L134
--- https://github.com/larspensjo/ephenation-server/blob/75e2e84791f446b1e0c38d2d83abaa7c8966bd74/src/cmd/server/config.go#L56
+-- https://github.com/larspensjo/ephenation-server/tree/75e2e84791f446b1e0c38d2d83abaa7c8966bd74
 -- (Z, not Y, seems to be up.)
 
 local simplex = dofile(minetest.get_modpath("the_caves") .. "/simplex_noise.lua")
@@ -14,7 +11,10 @@ minetest.register_alias_force("mapgen_singlenode", "air")
 local vmanip_data
 
 local function noise(x, y, z)
-    return simplex.Simplex3D(x * 0.005, y * 0.01, z * 0.005) / 2 + 0.5
+    return (
+        simplex.Simplex3D(x * 0.0025, y * 0.005, z * 0.0025) +
+        simplex.Simplex3D(x * 0.005, y * 0.01, z * 0.005)
+    ) / 2
 end
 
 minetest.register_on_generated(function()
@@ -29,16 +29,18 @@ minetest.register_on_generated(function()
     for x = pos_min.x, pos_max.x do
         for y = pos_min.y, pos_max.y do
             for z = pos_min.z, pos_max.z do
+                local index = area:index(x, y, z)
+
                 local noise_1 = noise(x, y, z)
-                if noise_1 > 0.45 and noise_1 < 0.55 then
+                if noise_1 > -0.05 and noise_1 < 0.05 then
                     local noise_2 = noise(-x, -y, -z)
-                    if noise_2 > 0.45 and noise_2 < 0.55 then
-                        data[area:index(x, y, z)] = air
+                    if noise_2 > -0.05 and noise_2 < 0.05 then
+                        data[index] = air
                     else
-                        data[area:index(x, y, z)] = stone
+                        data[index] = stone
                     end
                 else
-                    data[area:index(x, y, z)] = stone
+                    data[index] = stone
                 end
             end
         end
