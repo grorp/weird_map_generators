@@ -17,11 +17,11 @@ local function noise(x, y, z)
     ) / 2
 end
 
-minetest.register_on_generated(function()
-    local vmanip, pos_min, pos_max = minetest.get_mapgen_object("voxelmanip")
+minetest.register_on_generated(function(pos_min, pos_max)
+    local vmanip, vmanip_pos_min, vmanip_pos_max = minetest.get_mapgen_object("voxelmanip")
+    local area = VoxelArea:new{MinEdge = vmanip_pos_min, MaxEdge = vmanip_pos_max}
     vmanip_data = vmanip:get_data(vmanip_data)
     local data = vmanip_data
-    local area = VoxelArea:new{MinEdge = pos_min, MaxEdge = pos_max}
 
     local air = minetest.get_content_id("air")
     local stone = minetest.get_content_id("basenodes:stone")
