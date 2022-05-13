@@ -8,7 +8,7 @@ local simplex = dofile(minetest.get_modpath("the_caves") .. "/simplex_noise.lua"
 minetest.set_mapgen_setting("mg_name", "singlenode", true)
 minetest.register_alias_force("mapgen_singlenode", "air")
 
-local vmanip_data
+local vm_data
 
 local function noise(x, y, z)
     return (
@@ -18,10 +18,10 @@ local function noise(x, y, z)
 end
 
 minetest.register_on_generated(function(pos_min, pos_max)
-    local vmanip, vmanip_pos_min, vmanip_pos_max = minetest.get_mapgen_object("voxelmanip")
-    local area = VoxelArea:new{MinEdge = vmanip_pos_min, MaxEdge = vmanip_pos_max}
-    vmanip_data = vmanip:get_data(vmanip_data)
-    local data = vmanip_data
+    local vm, vm_pos_min, vm_pos_max = minetest.get_mapgen_object("voxelmanip")
+    local area = VoxelArea:new{MinEdge = vm_pos_min, MaxEdge = vm_pos_max}
+    vm_data = vm:get_data(vm_data)
+    local data = vm_data
 
     local air = minetest.get_content_id("air")
     local stone = minetest.get_content_id("basenodes:stone")
@@ -46,6 +46,6 @@ minetest.register_on_generated(function(pos_min, pos_max)
         end
     end
 
-    vmanip:set_data(data)
-    vmanip:write_to_map()
+    vm:set_data(data)
+    vm:write_to_map()
 end)
