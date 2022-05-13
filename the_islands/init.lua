@@ -39,14 +39,14 @@ minetest.register_on_generated(function(pos_min, pos_max, block_seed)
         )
 
         local noise_map = minetest.get_perlin_map({
-			octaves = 1,
-			offset = 0.5,
-			scale = 0.2,
-			seed = 2126473205,
-			spread = vector.new(5, 5, 5),
-		}, size + vector.new(1, 1, 1))
-		local noise_map_data = noise_map:get_3d_map_flat(island_min)
-		local noise_map_area = VoxelArea:new{MinEdge = island_min, MaxEdge = island_max}
+            octaves = 1,
+            offset = 0.5,
+            scale = 0.2,
+            seed = 2126473205,
+            spread = vector.new(5, 5, 5),
+        }, size + vector.new(1, 1, 1))
+        local noise_map_data = noise_map:get_3d_map_flat(island_min)
+        local noise_map_area = VoxelArea:new{MinEdge = island_min, MaxEdge = island_max}
 
         for x = island_min.x, island_max.x do
             for y = island_min.y, island_max.y do
