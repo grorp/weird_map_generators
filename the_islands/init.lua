@@ -38,13 +38,15 @@ minetest.register_on_generated(function(pos_min, pos_max, block_seed)
             size.z / 2
         )
 
-        local noise_map = minetest.get_perlin_map({
-            octaves = 1,
-            offset = 0.5,
-            scale = 0.2,
-            seed = 2126473205,
-            spread = vector.new(5, 5, 5),
-        }, size + vector.new(1, 1, 1))
+        local noise_map = minetest.get_perlin_map(
+            {
+                octaves = 1,
+                scale = 0.4,
+                seed = 2126473205,
+                spread = size / 2,
+            },
+            size + vector.new(1, 1, 1)
+        )
         local noise_map_data = noise_map:get_3d_map_flat(island_min)
         local noise_map_area = VoxelArea:new{MinEdge = island_min, MaxEdge = island_max}
 
@@ -57,9 +59,9 @@ minetest.register_on_generated(function(pos_min, pos_max, block_seed)
                         ((x - island_origin.x) / radius.x) ^ 2 +
                         ((y - island_origin.y) / radius.y) ^ 2 +
                         ((z - island_origin.z) / radius.z) ^ 2
-                    ) * 0.5
+                    )
                     local noise = noise_map_data[noise_map_area:index(x, y, z)]
-                    if noise - distance > 0 then
+                    if distance + noise <= 1 then
                         vm_data[index] = stone
                     end
                 end
