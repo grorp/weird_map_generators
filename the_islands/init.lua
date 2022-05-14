@@ -43,7 +43,7 @@ minetest.register_on_generated(function(pos_min, pos_max, block_seed)
                 octaves = 1,
                 scale = 0.4,
                 seed = 2126473205,
-                spread = size / 2,
+                spread = size * 0.5,
             },
             size + vector.new(1, 1, 1)
         )
