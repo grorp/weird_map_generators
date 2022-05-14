@@ -24,7 +24,7 @@ minetest.register_on_generated(function(pos_min, pos_max)
     local data = vm_data
 
     local air = minetest.get_content_id("air")
-    local stone = minetest.get_content_id("basenodes:stone")
+    local stone = minetest.get_content_id("mapgen_stone")
 
     for x = pos_min.x, pos_max.x do
         for y = pos_min.y, pos_max.y do

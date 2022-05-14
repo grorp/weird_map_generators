@@ -15,7 +15,7 @@ minetest.register_on_generated(function(pos_min, pos_max, block_seed)
     local vm_area = VoxelArea:new{MinEdge = vm_pos_min, MaxEdge = vm_pos_max}
     vm_data = vm:get_data(vm_data)
 
-    local stone = minetest.get_content_id("basenodes:stone")
+    local stone = minetest.get_content_id("mapgen_stone")
 
     local rng = PcgRandom(block_seed + 1913488162)
 
