@@ -1,3 +1,10 @@
+-- https://github.com/minetest/minetest/blob/ec9f1575121e3b064b919bca7efddfa8b0fc4e65/src/mapgen/mg_ore.cpp#L368
+-- https://github.com/minetest/minetest/blob/ec9f1575121e3b064b919bca7efddfa8b0fc4e65/doc/lua_api.txt#L3942 (not very informative)
+
+-- https://github.com/minetest/minetest_game/blob/38307da22a6c74b45f021ad627b21b73672dfe14/mods/default/mapgen.lua#L536
+
+-- https://stackoverflow.com/questions/17770555/how-to-check-if-a-point-is-inside-an-ellipsoid
+
 minetest.set_mapgen_setting("mg_name", "singlenode", true)
 minetest.register_alias_force("mapgen_singlenode", "air")
 
