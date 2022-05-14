@@ -19,9 +19,8 @@ end
 
 minetest.register_on_generated(function(pos_min, pos_max)
     local vm, vm_pos_min, vm_pos_max = minetest.get_mapgen_object("voxelmanip")
-    local area = VoxelArea:new{MinEdge = vm_pos_min, MaxEdge = vm_pos_max}
+    local vm_area = VoxelArea:new{MinEdge = vm_pos_min, MaxEdge = vm_pos_max}
     vm_data = vm:get_data(vm_data)
-    local data = vm_data
 
     local air = minetest.get_content_id("air")
     local stone = minetest.get_content_id("mapgen_stone")
@@ -29,23 +28,23 @@ minetest.register_on_generated(function(pos_min, pos_max)
     for x = pos_min.x, pos_max.x do
         for y = pos_min.y, pos_max.y do
             for z = pos_min.z, pos_max.z do
-                local index = area:index(x, y, z)
+                local index = vm_area:index(x, y, z)
 
                 local noise_1 = noise(x, y, z)
                 if noise_1 > -0.05 and noise_1 < 0.05 then
                     local noise_2 = noise(-x, -y, -z)
                     if noise_2 > -0.05 and noise_2 < 0.05 then
-                        data[index] = air
+                        vm_data[index] = air
                     else
-                        data[index] = stone
+                        vm_data[index] = stone
                     end
                 else
-                    data[index] = stone
+                    vm_data[index] = stone
                 end
             end
         end
     end
 
-    vm:set_data(data)
+    vm:set_data(vm_data)
     vm:write_to_map()
 end)
