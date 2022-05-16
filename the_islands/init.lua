@@ -60,8 +60,6 @@ minetest.register_on_generated(function(pos_min, pos_max, block_seed)
         for x = island_min.x, island_max.x do
             for y = island_min.y, island_max.y do
                 for z = island_min.z, island_max.z do
-                    local index = vm_area:index(x, y, z)
-
                     local distance = (
                         ((x - island_origin.x) / radius.x) ^ 2 +
                         ((y - island_origin.y) / radius.y) ^ 2 +
@@ -69,7 +67,7 @@ minetest.register_on_generated(function(pos_min, pos_max, block_seed)
                     )
                     local noise = noise_map_data[noise_map_area:index(x, y, z)]
                     if distance + noise <= 1 then
-                        vm_data[index] = stone
+                        vm_data[vm_area:index(x, y, z)] = stone
                     end
                 end
             end
